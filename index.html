@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Test</title>
+<meta charset="UTF-8">
+<title>Flipbook</title>
+
+<link rel="stylesheet" href="https://unpkg.com/page-flip/dist/page-flip.min.css">
+<script src="https://unpkg.com/page-flip/dist/page-flip.browser.min.js"></script>
+
+<style>
+  body {
+    margin: 0;
+    background: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  #flipbook {
+    width: 800px;
+    height: 600px;
+  }
+
+  .page {
+    background: white;
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+
+  .page img {
+    width: 100%;
+  }
+</style>
 </head>
-<body style="background:#111;color:#fff;font-family:sans-serif;">
-  <h1>GitHub Pages is working</h1>
-  <p>If you see this, the problem is NOT GitHub Pages.</p>
+
+<body>
+
+<div id="flipbook"></div>
+
+<script>
+  const pages = [];
+
+  for (let i = 1; i <= 15; i++) {
+    const page = document.createElement("div");
+    page.className = "page";
+    page.innerHTML = `
+      <h2>Page ${i}</h2>
+      <img src="https://picsum.photos/800/600?random=${i}">
+      <p>Placeholder text for page ${i}.</p>
+    `;
+    pages.push(page);
+  }
+
+  const book = new PageFlip(document.getElementById("flipbook"), {
+    width: 800,
+    height: 600,
+    showCover: true,
+    flippingTime: 700,
+    drawShadow: true
+  });
+
+  book.loadFromHTML(pages);
+</script>
+
 </body>
 </html>
